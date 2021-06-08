@@ -1,0 +1,42 @@
+package tests.entities;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import entities.Account;
+
+public class AccountTest {
+
+	//<ACAO> should <EFEITO> [when <CENÁRIO>]
+	@Test
+	public void depositShouldIncreaseBalanceWhenPositiveAmount() {
+		
+		/**
+		 * Arranje -> Instancie o que for necessário
+		 * Act -> Execute os métodos
+		 * Assert -> declare o que deveria acontecer (resultado esperado)
+		 */
+		
+		//Arranje
+		double amount = 200.0; //200 - 2%  = 196
+		double expectedValue = 196.0;
+		Account acc = new Account(1L, 0);
+		//Act
+		acc.deposit(amount);
+		//Assert
+		Assertions.assertEquals(expectedValue, acc.getBalance());		
+	}
+	
+	@Test
+	public void withdrawSouldDecreaseBalanceWhenPositiveAmount() {
+		
+		double amount = 50;
+		double initialValue = 200;
+		double expectedValue = 150;
+		Account acc = new Account(1L, initialValue);
+		
+		acc.withdraw(amount);
+		
+		Assertions.assertEquals(expectedValue, acc.getBalance());
+	}
+}
