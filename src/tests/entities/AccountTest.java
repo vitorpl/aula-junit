@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import entities.Account;
+import tests.factory.AccountFactory;
 
 public class AccountTest {
 
@@ -20,7 +21,7 @@ public class AccountTest {
 		//Arranje
 		double amount = 200.0; //200 - 2%  = 196
 		double expectedValue = 196.0;
-		Account acc = new Account(1L, 0);
+		Account acc = AccountFactory.createAccount(); //new Account(1L, 0);
 		//Act
 		acc.deposit(amount);
 		//Assert
@@ -33,10 +34,23 @@ public class AccountTest {
 		double amount = 50;
 		double initialValue = 200;
 		double expectedValue = 150;
-		Account acc = new Account(1L, initialValue);
+		Account acc = AccountFactory.createAccount(initialValue);//new Account(1L, initialValue);
 		
 		acc.withdraw(amount);
 		
 		Assertions.assertEquals(expectedValue, acc.getBalance());
+	}
+	
+	@Test
+	public void depositShouldDoNothingWhenNegativeAmount() {
+		
+		double amount = -5.0;
+		double initValue = 100.0;
+		double expectedValue = initValue;
+		Account acc = AccountFactory.createAccount(initValue); //new Account(1L, initValue);
+		
+		acc.deposit(amount);
+		
+		Assertions.assertEquals(expectedValue, acc.getBalance());		
 	}
 }
